@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  bitcart: bitcart/bitcart-shared@2
+  rdwv: rdwv/rdwv-shared@2
 
 executors:
   main-executor:
@@ -22,11 +22,11 @@ commands:
       - run:
           name: clone daemon
           command: |
-            git clone https://github.com/bitcart/bitcart ~/bitcart-daemon
+            git clone https://github.com/rdwv/rdwv ~/rdwv-daemon
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "setup.py" }}-{{ checksum "test-requirements.txt" }}-{{ checksum "~/bitcart-daemon/requirements/daemons/btc.txt" }}
+            - v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "setup.py" }}-{{ checksum "test-requirements.txt" }}-{{ checksum "~/rdwv-daemon/requirements/daemons/btc.txt" }}
 
       - run:
           name: install library
@@ -42,14 +42,14 @@ commands:
           command: |
             sudo apt update
             sudo apt install libsecp256k1-dev
-            cd ~/bitcart-daemon
+            cd ~/rdwv-daemon
             pip install -U -r requirements/base.txt
             pip install -U -r requirements/daemons/btc.txt
 
       - save_cache:
           paths:
             - ~/venv
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "setup.py" }}-{{ checksum "test-requirements.txt" }}-{{ checksum "~/bitcart-daemon/requirements/daemons/btc.txt" }}
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "~/.pyenv/version" }}-{{ checksum "setup.py" }}-{{ checksum "test-requirements.txt" }}-{{ checksum "~/rdwv-daemon/requirements/daemons/btc.txt" }}
 
   upload-results:
     steps:
@@ -85,7 +85,7 @@ jobs:
       - run:
           name: prepare daemon
           command: |
-            cd ~/bitcart-daemon
+            cd ~/rdwv-daemon
             make testnet
           background: true
 
@@ -94,12 +94,12 @@ jobs:
           command: |
             make ci
 
-      - bitcart/codecov
+      - rdwv/codecov
 
       - upload-results
 
   deploy:
-    executor: bitcart/docker-python
+    executor: rdwv/docker-python
     docker:
       - image: cimg/python:3.9
     steps:
@@ -126,7 +126,7 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - bitcart/lint:
+      - rdwv/lint:
           name: lint
       - test:
           name: test-<< matrix.v >>
@@ -140,12 +140,12 @@ workflows:
                 - "3.11"
                 - "3.12"
 
-      - bitcart/functional-tests:
+      - rdwv/functional-tests:
           name: functional-tests
           dependency-steps:
             - install_dependencies
           tests-target: regtest
-          daemon-dir: ~/bitcart-daemon
+          daemon-dir: ~/rdwv-daemon
           requires:
             - test
 

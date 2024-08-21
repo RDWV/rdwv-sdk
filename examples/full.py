@@ -1,4 +1,4 @@
-from bitcart import BTC, errors
+from rdwv import BTC, errors
 
 SHOW_UPDATES = True  # if you want this demo to run forever printing out updates
 DONATE_TO_AUTHOR = False  # if you really want to execute pay_to commands on your wallet
@@ -55,7 +55,7 @@ if DONATE_TO_AUTHOR:
     )
 
 # Lightning(requires wallet) #
-print(btc2.node_id)  # your lightning node id(lightning daemon is bitcart daemon itself)
+print(btc2.node_id)  # your lightning node id(lightning daemon is rdwv daemon itself)
 print(btc2.add_invoice(0.5, "Description"))  # create lightning invoice
 # print(btc2.connect("some connection string"))  # add new lightning peer, connect
 # print(btc2.open_channel("some node id", 0.5))  # open lightning channel with node

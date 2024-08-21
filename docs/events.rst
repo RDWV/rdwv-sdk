@@ -1,4 +1,4 @@
-Bitcart SDK Events System
+RDWV SDK Events System
 ---------------------------
 
 Introduction

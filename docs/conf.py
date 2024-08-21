@@ -22,12 +22,12 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "Bitcart SDK"
+project = "RDWV SDK"
 copyright = "2019-2023, MrNaif2018"
 author = "MrNaif2018"
 
 # The full version, including alpha/beta/rc tags
-release = pkg_resources.get_distribution("bitcart").version
+release = pkg_resources.get_distribution("rdwv").version
 
 
 # -- General configuration ---------------------------------------------------

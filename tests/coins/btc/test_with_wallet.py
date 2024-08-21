@@ -3,7 +3,7 @@ from decimal import Decimal
 
 import pytest
 
-from bitcart import BTC, errors
+from rdwv import BTC, errors
 
 from ...utils import data_check
 

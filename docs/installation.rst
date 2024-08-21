@@ -1,23 +1,23 @@
-Installing Bitcart SDK
+Installing RDWV SDK
 ========================
 
 Simply run
 
 .. code-block:: sh
 
-    pip install bitcart
+    pip install rdwv
 
 to install the library.
 
 But to initialize bitcoin instance you will need
 ``rpc_url``, ``rpc_login`` and ``rpc_password`` (not required, defaults
 work with default ports and authentification).
-For that you'll need Bitcart daemon, so:
+For that you'll need RDWV daemon, so:
 
 .. code-block:: sh
 
-    git clone https://github.com/bitcart/bitcart
-    cd bitcart
+    git clone https://github.com/rdwv/rdwv
+    cd rdwv
     pip install -r requirements/base.txt
     pip install -r requirements/daemons/btc.txt
 
@@ -28,7 +28,7 @@ For example if you run bitcoin, ``coin_name=btc, COIN_NAME=BTC``, for litecoin `
 Run ``pip install -r requirements/daemons/coin_name.txt`` to install
 requirements for daemon of ``coin_name``.
 
-This will clone main Bitcart repo and install dependencies,
+This will clone main RDWV repo and install dependencies,
 we recommend using virtualenv for consistency(some daemons conflict one
 with another, so using one virtualenv per daemon is fine).
 
@@ -58,15 +58,15 @@ Where port is the port your daemon uses.
 You can change port and host by using ``COIN_NAME_HOST`` and ``COIN_NAME_PORT``
 env variables.
 Default ports are starting from 5000 and increase for each daemon by 1
-(in order how they were added to Bitcart).
+(in order how they were added to RDWV).
 Refer to main docs for ports information.
 Bitcoin port is 5000, litecoin is 5001, etc.
-So, to initialize your Bitcart instance right now,
+So, to initialize your RDWV instance right now,
 import it and use those settings:
 
 .. code-block:: python
 
-    from bitcart import BTC
+    from rdwv import BTC
     btc = BTC(xpub="your (x/y/z)pub or (x/y/z)prv or electrum seed")
 
 All the variables are actually optional, so you can just do
@@ -79,12 +79,12 @@ You can get it from your wallet provider, or, for testing or not,
 from `here <https://iancoleman.io/bip39/>`_.
 
 You can configure default user and password in ``conf/.env``
-file of cloned bitcart repo, like so:
+file of cloned rdwv repo, like so:
 
 .. code-block:: sh
 
     COIN_NAME_USER=myuser
     COIN_NAME_PASS=mypassword
 
-After that you can freely use bitcart methods,
+After that you can freely use rdwv methods,
 refer to :doc:`API docs <api>` for more information.

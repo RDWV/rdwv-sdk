@@ -20,8 +20,8 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # BTC class for BTC coin, the same for others, just replace the name
 # COINS is a dictionary of coin symbol: coin class
-from bitcart import COINS, APIManager
-from bitcart.utils import bitcoins
+from rdwv import COINS, APIManager
+from rdwv.utils import bitcoins
 
 # Don't show message
 Session.notice_displayed = True
@@ -60,7 +60,7 @@ if not TOKEN:
 
 ENABLED_CRYPTOS = parse_commas(config.get("cryptos", ""))
 
-# bitcart: create APIManager
+# rdwv: create APIManager
 manager_data = {}
 instances = {}
 
@@ -71,7 +71,7 @@ for currency in ENABLED_CRYPTOS:
         continue
     xpub = config.get(f"{currency}_xpub") or XPUB
     manager_data[upper_currency] = [xpub]
-    # bitcart: create coin object
+    # rdwv: create coin object
     instances[currency] = COINS[upper_currency](xpub=xpub)
 
 if not manager_data:
@@ -197,7 +197,7 @@ def paylink_kb(currency, amount):
 
 @app.on_message(filters.command("help"))
 def help_handler(client, message):
-    # bitcart: get usd price
+    # rdwv: get usd price
     usd_price = round(instances["btc"].rate() * Decimal(satoshis_hundred), 2)  # we use Decimals for accuracy
     message.reply(
         f"""
@@ -278,7 +278,7 @@ def start(client, message):
         send_welcome = True
     if send_welcome:
         message.reply(
-            "Welcome to the Bitcart Atomic TipBot! /help for list of commands",
+            "Welcome to the RDWV Atomic TipBot! /help for list of commands",
             quote=False,
         )
 
@@ -340,9 +340,9 @@ def convert_amounts(currency, amount):
 
 def generate_invoice(user_id, currency, amount, amount_sat, description=""):
     amount, friendly_name = convert_amounts(currency, amount)
-    # bitcart: create invoice
+    # rdwv: create invoice
     invoice = instances[currency].add_request(amount, description, expire=20160)  # 14 days
-    amount_field = instances[currency].amount_field  # bitcart: each coin object provides amount_field
+    amount_field = instances[currency].amount_field  # rdwv: each coin object provides amount_field
     invoice[amount_field] = str(invoice[amount_field])  # convert to str for mongodb
     status = invoice.get("status_str", invoice["status"])  # for bch-based coins status_str is missing
     invoice.update({"user_id": user_id, "currency": currency, "original_amount": amount_sat, "status_str": status})
@@ -355,7 +355,7 @@ def deposit_query(client, call):
     call.edit_message_text("Okay, almost done! Now generating invoice...")
     _, currency, amount = call.data.split("_")
     amount_sat = int(amount)
-    amount_btc = bitcoins(amount_sat)  # bitcart: convert satoshis to bitcoins
+    amount_btc = bitcoins(amount_sat)  # rdwv: convert satoshis to bitcoins
     user_id = call.from_user.id
     invoice, amount, _ = generate_invoice(user_id, currency, amount_btc, amount_sat, f"{secret_id(user_id)} top-up")
     send_qr(
@@ -409,7 +409,7 @@ def paylink_query(client, message):
 async def payment_handler(instance, event, address, status, status_str):  # async to make pyrogram sending work
     inv = mongo.invoices.find({"address": address}).limit(1).sort([("$natural", -1)])[0]  # to get latest result
     if inv and inv["status_str"] != "Paid":
-        # bitcart: get invoice info, not neccesary here
+        # rdwv: get invoice info, not neccesary here
         # instance.get_request(address)
         if status_str == "Paid":
             user = mongo.users.find_one({"user_id": inv["user_id"]})
@@ -523,7 +523,7 @@ def withdraw(client, message):
             f' so in any of these currencies: {", ".join(available_coins)}',
             quote=False,
         )
-    # bitcart: send to address in BTC
+    # rdwv: send to address in BTC
     try:
         tx_hash = coin_obj.pay_to(address, amount_to_send)
         # payment succeeded, we have tx hash
@@ -651,7 +651,7 @@ def make_bet(userid, currency, amount, trend, set_time, chat_id, msg_id):
             "win": win_amount,
         }
         mongo.bets.insert_one(bet_data)
-        coin_name = instances[currency].coin_name.lower()  # bitcart: get coin data
+        coin_name = instances[currency].coin_name.lower()  # rdwv: get coin data
         app.send_message(
             chat_id=chat_id,
             text=(
@@ -739,7 +739,7 @@ def send2telegram(client, message):
         amount = int(amount)
         if charge_user(user_id, amount, receiver):
             genvoucher(user_id, amount, receiver)
-            message.reply(f"Funds reserved for {receiver}, now he needs send /claim command to @bitcart_atomic_tipbot")
+            message.reply(f"Funds reserved for {receiver}, now he needs send /claim command to @rdwv_atomic_tipbot")
         else:
             try:
                 app.send_animation(
@@ -823,13 +823,13 @@ async def betcheck():
 
 
 async def start_websocket():
-    await manager.start_websocket()  # bitcart: start websocket
+    await manager.start_websocket()  # rdwv: start websocket
 
 
 # NOTE: it is not recommended to use threading with asyncio, .create_task should be used instead!
 
 loop = asyncio.get_event_loop()
 loop.create_task(betcheck_schedule())
-loop.create_task(start_websocket())  # bitcart: start websocket to listen for new payments on all coins
+loop.create_task(start_websocket())  # rdwv: start websocket to listen for new payments on all coins
 
 app.run()

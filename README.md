@@ -1,11 +1,11 @@
-# Bitcart SDK
+# RDWV SDK
 
-[![CircleCI](https://circleci.com/gh/bitcart/bitcart-sdk.svg?style=svg)](https://circleci.com/gh/bitcart/bitcart-sdk)
-[![Codecov](https://img.shields.io/codecov/c/github/bitcart/bitcart-sdk?style=flat-square)](https://codecov.io/gh/bitcart/bitcart-sdk)
-[![PyPI version](https://img.shields.io/pypi/v/bitcart.svg?style=flat-square)](https://pypi.python.org/pypi/bitcart/)
-[![Read the Docs](https://img.shields.io/readthedocs/bitcart-sdk?style=flat-square)](https://sdk.bitcart.ai)
+[![CircleCI](https://circleci.com/gh/rdwv/rdwv-sdk.svg?style=svg)](https://circleci.com/gh/rdwv/rdwv-sdk)
+[![Codecov](https://img.shields.io/codecov/c/github/rdwv/rdwv-sdk?style=flat-square)](https://codecov.io/gh/rdwv/rdwv-sdk)
+[![PyPI version](https://img.shields.io/pypi/v/rdwv.svg?style=flat-square)](https://pypi.python.org/pypi/rdwv/)
+[![Read the Docs](https://img.shields.io/readthedocs/rdwv-sdk?style=flat-square)](https://sdk.rdwv.ai)
 
-This is a client library(wrapper) around Bitcart daemon. It is used to simplify common commands.
+This is a client library(wrapper) around RDWV daemon. It is used to simplify common commands.
 Coins support(⚡ means lightning is supported):
 
 - Bitcoin (⚡)
@@ -40,7 +40,7 @@ async def main():
 
 Async callback functions for `@btc.on` are supported.
 
-For more information [Read the Docs](https://sdk.bitcart.ai)
+For more information [Read the Docs](https://sdk.rdwv.ai)
 
 ## Release versioning
 

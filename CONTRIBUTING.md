@@ -1,32 +1,32 @@
-# Contributing to Bitcart SDK
+# Contributing to RDWV SDK
 
-Welcome, and thank you for your interest in contributing to Bitcart SDK!
+Welcome, and thank you for your interest in contributing to RDWV SDK!
 
-Our [central contributing guidelines](https://github.com/bitcart/bitcart/blob/master/CONTRIBUTING.md) apply to all Bitcart repositories.
+Our [central contributing guidelines](https://github.com/rdwv/rdwv/blob/master/CONTRIBUTING.md) apply to all RDWV repositories.
 
-Below are the instructions for setting up development environment with Bitcart SDK.
+Below are the instructions for setting up development environment with RDWV SDK.
 
 ## Setting up development environment
 
-Some general advice can be found in our [central contributing guidelines](https://github.com/bitcart/bitcart/blob/master/CONTRIBUTING.md#setting-up-development-environment).
+Some general advice can be found in our [central contributing guidelines](https://github.com/rdwv/rdwv/blob/master/CONTRIBUTING.md#setting-up-development-environment).
 
 Instructions:
 
 ```bash
-git clone https://github.com/<<<your-github-account>>>/bitcart-sdk.git
-cd bitcart-sdk
+git clone https://github.com/<<<your-github-account>>>/rdwv-sdk.git
+cd rdwv-sdk
 virtualenv env
 source env/bin/activate
 pip3 install -e .
 pip3 install -r test-requirements.txt # for tests
 ```
 
-The library is async, sync version is supported by file `bitcart/sync.py` by wrapping all functions and returning coroutines or function results
+The library is async, sync version is supported by file `rdwv/sync.py` by wrapping all functions and returning coroutines or function results
 based on context.
 
 From now on, development environment is ready.
 
-Make sure to follow [our coding guidelines](https://github.com/bitcart/bitcart/blob/master/CODING_STANDARDS.md) when developing.
+Make sure to follow [our coding guidelines](https://github.com/rdwv/rdwv/blob/master/CODING_STANDARDS.md) when developing.
 
 This repository uses pre-commit hooks for better development experience. Install them with:
 
@@ -73,7 +73,7 @@ Before running extended test suite, start bitcoind and fulcrum. Each time regtes
 
 Run `make bitcoind` to start bitcoind, `make fulcrum` to start fulcrum.
 
-After that, stop your testnet Bitcart daemon, and start regtest one from cloned `bitcart` repo by running `make regtest`.
+After that, stop your testnet RDWV daemon, and start regtest one from cloned `rdwv` repo by running `make regtest`.
 
 You should also start an lightning node for testing, run `make regtestln` in another terminal.
 

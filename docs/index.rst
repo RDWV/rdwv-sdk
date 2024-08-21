@@ -1,9 +1,9 @@
-.. Bitcart SDK documentation master file, created by
+.. RDWV SDK documentation master file, created by
    sphinx-quickstart on Tue Jul  9 22:11:54 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Bitcart SDK's documentation!
+Welcome to RDWV SDK's documentation!
 =========================================
 
 .. toctree::
@@ -15,16 +15,16 @@ Welcome to Bitcart SDK's documentation!
    apimanager
    api
 
-Bitcart is a platform to simplify cryptocurrencies adaptation.
-This SDK is part of Bitcart.
-Using this SDK you can easily connect to Bitcart daemon
+RDWV is a platform to simplify cryptocurrencies adaptation.
+This SDK is part of RDWV.
+Using this SDK you can easily connect to RDWV daemon
 and code scripts around it easily.
 
-Behold, the power of Bitcart:
+Behold, the power of RDWV:
 
 .. code-block:: python
 
-    from bitcart import BTC
+    from rdwv import BTC
 
     btc = BTC(xpub="your (x/y/z)pub or (x/y/z)prv or electrum seed")
 
@@ -65,7 +65,7 @@ Supported coins list(⚡ means lightning is supported):
 
 To use proxy, install optional dependencies:
 
-``pip install bitcart[proxy]``
+``pip install rdwv[proxy]``
 HTTP, SOCKS4 and SOCKS5 proxies supported.
 
 To use, pass proxy url to coin constructor:

@@ -2,9 +2,9 @@ import multiprocessing
 
 import pytest
 
-from bitcart import BCH, BTC, LTC
-from bitcart.errors import CurrencyUnsupportedError, NoCurrenciesRegisteredError
-from bitcart.manager import APIManager
+from rdwv import BCH, BTC, LTC
+from rdwv.errors import CurrencyUnsupportedError, NoCurrenciesRegisteredError
+from rdwv.manager import APIManager
 from tests.utils import patch_session
 
 pytestmark = pytest.mark.asyncio
@@ -83,7 +83,7 @@ async def test_manager_no_wallets(patched_session, websocket_manager_no_wallets,
     websocket_manager_no_wallets.add_event_handler("new_transaction", new_tx_handler)
     server = DummyServer()
     server.session = patched_session
-    mocker.patch("bitcart.APIManager._get_websocket_server", return_value=server)
+    mocker.patch("rdwv.APIManager._get_websocket_server", return_value=server)
     await websocket_manager_no_wallets.start_websocket(auto_reconnect=False)
     assert test_queue.qsize() == 1
     assert test_queue.get() is True

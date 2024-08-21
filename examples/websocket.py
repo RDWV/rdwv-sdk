@@ -1,4 +1,4 @@
-from bitcart import BTC
+from rdwv import BTC
 
 btc = BTC(xpub="paste your x/y/z pub/prv or electrum seed here")
 

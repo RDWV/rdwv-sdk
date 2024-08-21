@@ -1,3 +1,3 @@
 import logging
 
-logger = logging.getLogger("bitcart")
+logger = logging.getLogger("rdwv")

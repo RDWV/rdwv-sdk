@@ -2,14 +2,14 @@
 # A command line utility returning tx info by tx hash
 import sys
 
-from bitcart import BTC
-from bitcart.errors import ConnectionFailedError, RequestError
+from rdwv import BTC
+from rdwv.errors import ConnectionFailedError, RequestError
 
 if len(sys.argv) != 2:
     print("Usage: ./gettx txhash")
     sys.exit(1)
 tx = sys.argv[1]
-# bitcart-related code
+# rdwv-related code
 btc = BTC()
 try:
     print(btc.get_tx(tx))

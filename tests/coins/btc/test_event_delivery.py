@@ -2,7 +2,7 @@ import multiprocessing
 
 import pytest
 
-from bitcart.errors import ConnectionFailedError
+from rdwv.errors import ConnectionFailedError
 from tests.utils import patch_session
 
 test_queue = multiprocessing.Queue()

@@ -2,7 +2,7 @@ all: ci
 
 lint:
 	flake8
-	mypy bitcart
+	mypy rdwv
 
 checkformat:
 	black --check .

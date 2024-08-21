@@ -3,8 +3,8 @@
 import sys
 from decimal import Decimal, InvalidOperation
 
-from bitcart import BTC, errors
-from bitcart.errors import ConnectionFailedError
+from rdwv import BTC, errors
+from rdwv.errors import ConnectionFailedError
 
 if len(sys.argv) != 4:
     print("Usage: ./donateto xpub address amount")
@@ -16,7 +16,7 @@ try:
 except InvalidOperation:
     print("Invalid amount passed")
     sys.exit(1)
-# bitcart-related code
+# rdwv-related code
 btc = BTC(xpub=xpub)
 try:
     tx_hash = btc.pay_to(address, amount)

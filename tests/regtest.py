@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from bitcart import errors
+from rdwv import errors
 
 from .utils import data_check, run_shell
 

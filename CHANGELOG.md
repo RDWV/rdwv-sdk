@@ -18,7 +18,7 @@ Electrums upgrade
 
 ## 1.12.1.1
 
-Rename BitcartCC to Bitcart
+Rename RDWVCC to RDWV
 
 ## 1.12.1.0
 
@@ -131,7 +131,7 @@ Ethereum support
 
 ## 1.8.0.0
 
-We now use our new [universalasync](https://github.com/bitcartcc/universalasync) package to make this library running in both sync and async contexts
+We now use our new [universalasync](https://github.com/rdwvcc/universalasync) package to make this library running in both sync and async contexts
 
 Therefore `get_event_loop` and `idle` functions were removed. They are accessible in the `universalasync` library.
 
@@ -195,7 +195,7 @@ Remove `logger.exception` in favour of `logger.error`
 
 Now SDK won't error out on invalid event being sent, stop websocket processing on error in handler and so on. It should be reliable now.
 
-All exceptions are instead logged by `bitcart` logger. You no longer need to put try/except in each handler to prevent accidental errors.
+All exceptions are instead logged by `rdwv` logger. You no longer need to put try/except in each handler to prevent accidental errors.
 
 `APIManager.load_wallet` now raises `CurrencyUnsupportedError` on non-supported currency passed. It now also handles currencies in a
 case-insensitive way.
@@ -322,9 +322,9 @@ All the code is now following our code style.
 
 #### Async/sync support in one library
 
-Before, `bitcart` and `bitcart-async` packages existed, one providing sync API, another one async API.
+Before, `rdwv` and `rdwv-async` packages existed, one providing sync API, another one async API.
 
-Now both use cases are supported in a single `bitcart` package.
+Now both use cases are supported in a single `rdwv` package.
 
 You can use either:
 
@@ -344,8 +344,8 @@ async def main():
 It is now possible to catch specific exceptions in commands, not just a general one.
 
 ```python
-from bitcart import errors
-from bitcart.errors import generate_exception, ConnectionFailedError
+from rdwv import errors
+from rdwv.errors import generate_exception, ConnectionFailedError
 
 try:
     coin.help()
@@ -373,7 +373,7 @@ All other errors are raised and created dynamically, by the spec.
 
 You can find your version of the spec at daemon's `/spec` endpoint.
 
-[Most recent spec url](https://github.com/bitcartcc/bitcart/blob/master/daemons/spec/btc.json)
+[Most recent spec url](https://github.com/rdwvcc/rdwv/blob/master/daemons/spec/btc.json)
 
 #### APIManager
 
@@ -381,11 +381,11 @@ APIManager provides an easy-to-use interface to manage multiple wallets/currenci
 
 It is useful for tracking payments on many wallets at once, for example.
 
-[APIManager documentation](https://sdk.bitcartcc.com/en/latest/apimanager.html)
+[APIManager documentation](https://sdk.rdwvcc.com/en/latest/apimanager.html)
 
 #### New utilities
 
-New module `bitcart.utils` was added.
+New module `rdwv.utils` was added.
 
 It has the following functions:
 
@@ -406,8 +406,8 @@ Now `COINS` variable is available, it's a dict, where keys are strings, values a
 It allows introspection of available coins.
 
 ```python
-from bitcart import COINS
-COINS["BTC"] # bitcart.BTC class
+from rdwv import COINS
+COINS["BTC"] # rdwv.BTC class
 ```
 
 #### Coins instances now can be compared
@@ -486,7 +486,7 @@ Now it is expecting to return amount in satoshis for ease of use.
 
 #### All errors are no longer based on ValueError
 
-By adding a better exception system, and a major version change, we remove ValueError. `bitcart.errors.BaseError` is now a base error for all exceptions. `bitcart.errors.RequestError` is a base error for all errors returned from server. `bitcart.errors.UnknownError`, if spec is unavailable works the same as `ValueError` before
+By adding a better exception system, and a major version change, we remove ValueError. `rdwv.errors.BaseError` is now a base error for all exceptions. `rdwv.errors.RequestError` is a base error for all errors returned from server. `rdwv.errors.UnknownError`, if spec is unavailable works the same as `ValueError` before
 
 #### Flask app setup will no longer work
 
@@ -496,15 +496,15 @@ As internally all SDK code is now async, it is based on aiohttp server for webho
 
 As aiohttp is now used for webhooks, there is no need to install extra dependencies. SDK 1.0 doesn't have webhook extra.
 
-#### bitcart-async package deprecated
+#### rdwv-async package deprecated
 
-As async and sync versions are now part of one library, it will be in `bitcart` Pypi package. `bitcart-async` package's last version will be 0.9.1.
+As async and sync versions are now part of one library, it will be in `rdwv` Pypi package. `rdwv-async` package's last version will be 0.9.1.
 
-All future updates will be made in `bitcart` package.
+All future updates will be made in `rdwv` package.
 
 #### Breaking changes in electrum format
 
-They can be found in this PR [comment](https://github.com/bitcartcc/bitcart-sdk/pull/17#issuecomment-700143843)
+They can be found in this PR [comment](https://github.com/rdwvcc/rdwv-sdk/pull/17#issuecomment-700143843)
 
 ## 0.9.1
 
@@ -515,7 +515,7 @@ Fixed timeout from 10 seconds to 5 minutes
 
 To use proxy, install optional dependencies:
 
-`pip install bitcart[proxy]` for sync version, `pip install bitcart-async[proxy]` for async version.
+`pip install rdwv[proxy]` for sync version, `pip install rdwv-async[proxy]` for async version.
 
 HTTP, SOCKS4 and SOCKS5 proxies supported.
 
@@ -566,7 +566,7 @@ Webhooks!
 
 This update adds a new way of receiving updates, start a webhook and daemon will deliver updates to that webhook by itself.
 
-To use that feature, `pip install bitcart[webhook]` for sync version(flask), async version has that built-in(aiohttp).
+To use that feature, `pip install rdwv[webhook]` for sync version(flask), async version has that built-in(aiohttp).
 
 To use that instead of polling, just replace
 `btc.poll_updates()`
@@ -601,7 +601,7 @@ Structural improvements and more
 
 This version makes async version the default one used in the repo.
 
-Pypi versions aren't changed, bitcart is sync version, bitcart-async is async.
+Pypi versions aren't changed, rdwv is sync version, rdwv-async is async.
 
 But now there is a major difference, instead of maintaining both sync and async versions,
 async version is in master, and sync version is generated using `sync_generator.py`, which basically removes async's and awaits.
@@ -617,7 +617,7 @@ Both `pay_to` and `pay_to_many` now have optional `feerate`, which is sat/vbyte 
 
 Minimum possible is 1 sat/vbyte.
 
-With bitcart you can get minimal fees, with no third parties!
+With rdwv you can get minimal fees, with no third parties!
 
 ## 0.6.3
 
@@ -647,8 +647,8 @@ Fix for latest daemon
 
 ## 0.6.0
 
-This version adds new coin: gzro to bitcart.
-All APIs are the same, just import GZRO from bitcart.
+This version adds new coin: gzro to rdwv.
+All APIs are the same, just import GZRO from rdwv.
 
 ## 0.5.1
 
@@ -656,11 +656,11 @@ Fee calculation func now recieves default fee as argument too
 
 ## 0.5.0
 
-This version adds new coin: litecoin to bitcart.
+This version adds new coin: litecoin to rdwv.
 
-This is where bitcart shows its features.
+This is where rdwv shows its features.
 
-All APIs are the same, just import LTC from bitcart.
+All APIs are the same, just import LTC from rdwv.
 
 ## 0.4.0
 
@@ -694,7 +694,7 @@ After upgrade, try for example, this:
 
 Lightning is enabled in your daemon by default, disable it with BTC_LIGTNING=false environment variable.
 
-If lightning is disabled, `bitcart.errors.LightningDisabledError` is raised.
+If lightning is disabled, `rdwv.errors.LightningDisabledError` is raised.
 
 ## 0.3.0
 
@@ -767,7 +767,7 @@ This is a small bugfix to fix pip description rendering.
 
 Version 0.2.0: Lightning update!
 
-Lightning network support is now in bitcart as defined by [bitcartcc/bitcart#51](https://github.com/bitcartcc/bitcart/pull/51)
+Lightning network support is now in rdwv as defined by [rdwvcc/rdwv#51](https://github.com/rdwvcc/rdwv/pull/51)
 
 This adds in new LN class and related methods.
 

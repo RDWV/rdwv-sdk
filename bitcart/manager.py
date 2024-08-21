@@ -4,7 +4,7 @@ from functools import partial
 from typing import TYPE_CHECKING, Any, Callable, Optional
 from urllib.parse import urljoin
 
-from bitcart.errors import CurrencyUnsupportedError, NoCurrenciesRegisteredError
+from rdwv.errors import CurrencyUnsupportedError, NoCurrenciesRegisteredError
 
 from .coins import COINS
 from .event_delivery import EventDelivery

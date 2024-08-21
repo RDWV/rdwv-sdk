@@ -1,8 +1,8 @@
-# Full example of using Bitcart: Telegram Atomic Tip Bot
+# Full example of using RDWV: Telegram Atomic Tip Bot
 
 **_Note: this example doesn't work because of `rate()` command being removed. Fetch exchange rates yourself or use Merchants API for this_**
 
-The bot is available in telegram at @bitcart_atomic_tipbot
+The bot is available in telegram at @rdwv_atomic_tipbot
 
 Used tools:
 
@@ -10,10 +10,10 @@ Used tools:
 - Mongo DB
 - Pyrogram(for bot)
 - qrcode library for generating qr codes
-- Bitcart to do all the bitcoin and lightning job.
+- RDWV to do all the bitcoin and lightning job.
 
 Special thanks to @reablaz, for his original [Atomic tips bot](https://github.com/reablaz/atomic_tipbot)
-This bot is rewritten in my style, using modern python 3.6+ f-strings, and of course, Bitcart. (and made this example reproducible)
+This bot is rewritten in my style, using modern python 3.6+ f-strings, and of course, RDWV. (and made this example reproducible)
 
 ## Installation
 
@@ -24,7 +24,7 @@ After that, install dependencies of this example using:
 `pip install -r requirements.txt`
 
 Check requirements.txt if you want to know exactly which dependencies were used and why.
-Bitcart SDK in pip is just `bitcart`.
+RDWV SDK in pip is just `rdwv`.
 
 After that, to run your bot, you need to have a telegram account, login to
 my.telegram.org, click on API development tools, create app if not yet, and take App api_id and api_hash from there.
@@ -39,19 +39,19 @@ After that, you need to get your x/y/z pub/prv(or Electrum seed). Get it from yo
 Enter it in xpub section of config.
 After that, rename config.ini.example to config.ini.
 
-Now everything is ready, we only need to start Bitcart daemon.
+Now everything is ready, we only need to start RDWV daemon.
 There are two ways to do it, automatic(via docker, recommended), or directly via your installed python.
 
 ### Automatic
 
-Clone bitcart-docker repository:
+Clone rdwv-docker repository:
 
 ```
-git clone https://github.com/bitcart/bitcart-docker
-cd bitcart-docker
+git clone https://github.com/rdwv/rdwv-docker
+cd rdwv-docker
 ```
 
-Now you need to configure Bitcart, but if you need only BTC daemon, run those
+Now you need to configure RDWV, but if you need only BTC daemon, run those
 
 ```
 export BITCART_INSTALL=none
@@ -74,11 +74,11 @@ If you will later need to stop them, run `./stop.sh`
 
 As for this example, Python 3.9+ is required. Using virtualenv is recommended.
 
-Clone Bitcart repository:
+Clone RDWV repository:
 
 ```
-git clone https://github.com/bitcart/bitcart
-cd bitcart
+git clone https://github.com/rdwv/rdwv
+cd rdwv
 ```
 
 Install base dependencies:
@@ -107,18 +107,18 @@ If you have come here to see how it works, read the next part.
 Code is formatted using black, checked with flake8.
 Below are some comments regarding what is what.
 
-### Bitcart
+### RDWV
 
-Bitcart is main in this example, it is used for all bot functions(generate invoice, wait for invoice payment, withdraw, etc.)
+RDWV is main in this example, it is used for all bot functions(generate invoice, wait for invoice payment, withdraw, etc.)
 
-[Bitcart Python SDK](https://pypi.org/project/bitcart) is used to make Bitcart usage easy. It internally connects to Bitcart daemon.
+[RDWV Python SDK](https://pypi.org/project/rdwv) is used to make RDWV usage easy. It internally connects to RDWV daemon.
 
-Look at # bitcart: comments in code to find things related to Bitcart.
+Look at # rdwv: comments in code to find things related to RDWV.
 As you can see, it is quite simple, but let's recap it.
 
-To use any coins you need, simply import them from `bitcart`, in case of bitcoin:
+To use any coins you need, simply import them from `rdwv`, in case of bitcoin:
 
-`from bitcart import BTC`
+`from rdwv import BTC`
 
 To start using it, we need to initialize BTC class, like so:
 
@@ -128,16 +128,16 @@ You can initialize it without any parameters, too, but it will be limited(wallet
 
 BTC class accepts the following parameters:
 
-- rpc_url - url of Bitcart daemon to connect to
-- rpc_user - user to login into your Bitcart daemon
-- rpc_pass - password to login into your Bitcart daemon
+- rpc_url - url of RDWV daemon to connect to
+- rpc_user - user to login into your RDWV daemon
+- rpc_pass - password to login into your RDWV daemon
 - xpub - actually it is not just xpub, it can be x/y/z pub/prv, almost anything. Electrum seed can be used too.
 - session - completely optional, pass your precreated aiohttp.ClientSession(only if you need to customize something in default session)
 
 After intializing coin, you can start using it.
-Bitcart SDK coins' main methods are fully documented(often with examples)
+RDWV SDK coins' main methods are fully documented(often with examples)
 Those are highlevel methods.
-If you see something missing, open issue at [Bitcart SDK repository](https://github.com/bitcart/bitcart-sdk)
+If you see something missing, open issue at [RDWV SDK repository](https://github.com/rdwv/rdwv-sdk)
 If you need to use electrum's RPC methods, call them via btc.server(a wrapper around it), like:
 
 `btc.server.validateaddress()`
@@ -150,7 +150,7 @@ To see a list of all RPC methods, call
 
 RPC methods accessible via btc.server can't have intellisence in your IDE because they are completely dynamic(via `__getattr__`).
 
-Now, about using Bitcart in this bot's code.
+Now, about using RDWV in this bot's code.
 Use `btc.add_request(amount, description="", expire=15)` to create BTC invoice
 Amount is amount in BTC, description is optional and is description of invoice, expire is the time invoice will expire in,
 default 15 minutes, but if you pass None, invoice will never expire.
@@ -205,7 +205,7 @@ def payment_handler(event, arg):
     # process it here
 ```
 
-Possible events can be found at [SDK docs](https://sdk.bitcart.ai/en/latest/events.html).
+Possible events can be found at [SDK docs](https://sdk.rdwv.ai/en/latest/events.html).
 
 To start listening for those updates, you need to start polling, for that, use:
 
@@ -224,9 +224,9 @@ To get transaction, use `btc.get_tx(tx_hash)`
 
 To accept updates for multiple coins, even in different currencies, you can use APIManager.
 
-You can read about APIManager in [SDK docs](https://sdk.bitcart.ai/en/latest/apimanager.html).
+You can read about APIManager in [SDK docs](https://sdk.rdwv.ai/en/latest/apimanager.html).
 
-For more information, read [Bitcart SDK docs](https://sdk.bitcart.ai) and [Main Bitcart docs](https://docs.bitcart.ai)
+For more information, read [RDWV SDK docs](https://sdk.rdwv.ai) and [Main RDWV docs](https://docs.rdwv.ai)
 
 ### Telegram bot
 

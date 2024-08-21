@@ -5,8 +5,8 @@ from aiohttp import ClientSession, TCPConnector, web
 from aiohttp.resolver import DefaultResolver
 from aiohttp.test_utils import unused_port
 
-from bitcart import BTC
-from bitcart.coin import Coin
+from rdwv import BTC
+from rdwv.coin import Coin
 
 TEST_XPUB = "vpub5Uako7h1ZsQzm31AKwSsEiLj494RpbZ7iYQt9zGMbLW2EcafkmWTTESDe5NJpKTBeyyf15mPKPTPgNYdS5756jua2KFBHuGAdXqQfXkk9oQ"
 # deterministic channels support only seeds

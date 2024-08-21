@@ -7,7 +7,7 @@ import os
 
 import pytest
 
-from bitcart import BTC
+from rdwv import BTC
 
 from ...utils import data_check
 

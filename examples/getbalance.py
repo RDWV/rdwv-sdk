@@ -2,14 +2,14 @@
 # A command line utility returning balance of a wallet by it's x/y/z pub/prv or electrum seed
 import sys
 
-from bitcart import BTC
-from bitcart.errors import ConnectionFailedError, RequestError
+from rdwv import BTC
+from rdwv.errors import ConnectionFailedError, RequestError
 
 if len(sys.argv) != 2:
     print("Usage: ./getbalance xpub")
     sys.exit(1)
 xpub = sys.argv[1]
-# bitcart-related code
+# rdwv-related code
 btc = BTC(xpub=xpub)
 try:
     balance = btc.balance()

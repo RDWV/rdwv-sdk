@@ -18,7 +18,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = [
-    "--cov=bitcart",
+    "--cov=rdwv",
     "--cov-report",
     "term-missing",
 ]
@@ -35,7 +35,7 @@ omit = [
     "venv/*",
     "env/*",
     "setup.py",
-    "bitcart/providers/jsonrpcrequests.py",
+    "rdwv/providers/jsonrpcrequests.py",
 ]
 
 [tool.coverage.report]

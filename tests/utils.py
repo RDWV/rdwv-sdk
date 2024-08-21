@@ -17,5 +17,5 @@ def data_check(data, key, check_type, length=None):
 
 def patch_session(mocker, patched_session):
     mocker.patch(
-        "bitcart.providers.jsonrpcrequests.RPCProxy.session", new_callable=mocker.PropertyMock(return_value=patched_session)
+        "rdwv.providers.jsonrpcrequests.RPCProxy.session", new_callable=mocker.PropertyMock(return_value=patched_session)
     )

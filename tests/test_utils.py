@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import pytest
 
-from bitcart.utils import bitcoins, convert_amount_type, satoshis
+from rdwv.utils import bitcoins, convert_amount_type, satoshis
 
 MAXSECONDS = 1
 

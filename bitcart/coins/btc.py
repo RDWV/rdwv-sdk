@@ -420,7 +420,7 @@ class BTC(Coin, EventDelivery):
     async def get_config(self, key: str) -> Any:
         """Get config key
 
-        Keys are stored in electrum's config file, check :meth:`bitcart.coins.btc.BTC.set_config` doc for details.
+        Keys are stored in electrum's config file, check :meth:`rdwv.coins.btc.BTC.set_config` doc for details.
 
         Example:
 
